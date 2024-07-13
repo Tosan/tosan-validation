@@ -17,6 +17,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DateDifference {
+
     String fromFieldName();
 
     String toFieldName();

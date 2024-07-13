@@ -95,7 +95,7 @@ public class CustomMessageInterpolator implements MessageInterpolator {
             String resolvedParameterValue;
             String parameter = matcher.group(1);
             Object variable = annotationParameters.get(removeCurlyBrace(parameter));
-            if (variable != null && variable.toString().length() > 0) {
+            if (variable != null && !variable.toString().isEmpty()) {
                 if (parameters.get(variable.toString()) != null) {
                     resolvedParameterValue = "{" + escapeMetaCharacters(variable.toString()) + "}";
                 } else {
@@ -112,14 +112,14 @@ public class CustomMessageInterpolator implements MessageInterpolator {
 
     private String resolveDoubleParameters(String message, Map<String, Object> annotationParameters) {
         Matcher doubleParameterMatcher = DOUBLE_PARAMETER_PATTERN.matcher(message);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while (doubleParameterMatcher.find()) {
             String parameter = doubleParameterMatcher.group(1) + doubleParameterMatcher.group(2);
             Matcher matcher = MESSAGE_PARAMETER_PATTERN.matcher(parameter);
             matcher.find();
             String param = matcher.group(1);
             Object variable = annotationParameters.get(removeCurlyBrace(param));
-            if (variable != null && variable.toString().length() > 0) {
+            if (variable != null && !variable.toString().isEmpty()) {
                 if (parameters.get(variable.toString()) == null) {
                     matcher.find();
                     param = matcher.group(1);
