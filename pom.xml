@@ -7,6 +7,8 @@
     <packaging>jar</packaging>
     <version>5.2.2-SNAPSHOT</version>
     <name>Tosan Validation</name>
+
+    <description>A java library for fields validation using the hibernate validator.</description>
     <url>https://github.com/Tosan/tedisson</url>
 
     <licenses>
@@ -15,6 +17,15 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>mosidev</name>
+            <email>abdollahi@tosan.com</email>
+            <organization>tosan</organization>
+            <organizationUrl>https://www.tosan.com</organizationUrl>
+        </developer>
+    </developers>
 
     <scm>
         <connection>scm:git:https://github.com/Tosan/tosan-validation.git</connection>
