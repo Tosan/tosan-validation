@@ -48,8 +48,10 @@ public abstract class DifferenceValidator extends MapAwareValidator<Object> {
         if (targetField != null) {
             return targetField;
         } else {
-            logger.error("Field with name {} does not exist.", fieldName);
-            throw new IllegalArgumentException(exception.getMessage(), exception);
+            String exceptionMessage = "Field with name " + fieldName + " does not exist.";
+            logger.error(exceptionMessage);
+            throw new IllegalArgumentException(exceptionMessage, exception);
+
         }
     }
 
