@@ -19,7 +19,7 @@ public abstract class DifferenceValidator extends MapAwareValidator<Object> {
         return evaluate(value);
     }
 
-    protected static Object getTragetObject(Object value, String fieldName) {
+    protected static Object getTargetObject(Object value, String fieldName) {
         Field field = findTargetField(value.getClass(), fieldName);
         field.setAccessible(true);
         try {
@@ -54,8 +54,8 @@ public abstract class DifferenceValidator extends MapAwareValidator<Object> {
     }
 
     private boolean evaluate(Object value) {
-        Object fromTargetObject = getTragetObject(value, getFromFieldName());
-        Object toTargetObject = getTragetObject(value, getToFieldName());
+        Object fromTargetObject = getTargetObject(value, getFromFieldName());
+        Object toTargetObject = getTargetObject(value, getToFieldName());
         if (fromTargetObject == null || toTargetObject == null) {
             return true;
         }
