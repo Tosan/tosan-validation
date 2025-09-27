@@ -68,10 +68,8 @@ public class GeneralDifferenceValidator extends DifferenceValidator implements C
     protected long getActualDifference(Object value) {
         long actualDifference;
         try {
-            Field fromField = value.getClass().getDeclaredField(fromFieldName);
-            fromField.setAccessible(true);
-            Field toField = value.getClass().getDeclaredField(toFieldName);
-            toField.setAccessible(true);
+            Field fromField = findTargetField(value.getClass(), fromFieldName);
+            Field toField = findTargetField(value.getClass(), toFieldName);
             Object fromObj = fromField.get(value);
             Object toObj = toField.get(value);
             if (fromObj instanceof Date && toObj instanceof Date) {
@@ -91,13 +89,20 @@ public class GeneralDifferenceValidator extends DifferenceValidator implements C
             } else {
                 throw new IllegalArgumentException("DateDifferenceValidator only accepts Date, JalaliDate and numeric fields.");
             }
-        } catch (NoSuchFieldException e) {
-            logger.error("Field with name " + fromFieldName + " or " + toFieldName + " does not exist.");
-            throw new IllegalArgumentException(e.getMessage(), e);
         } catch (IllegalAccessException e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
 
         return actualDifference;
+    }
+
+    @Override
+    protected String getFromFieldName() {
+        return fromFieldName;
+    }
+
+    @Override
+    protected String getToFieldName() {
+        return toFieldName;
     }
 }
