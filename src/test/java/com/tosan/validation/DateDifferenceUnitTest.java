@@ -159,4 +159,10 @@ public class DateDifferenceUnitTest {
         }
         Assert.fail();
     }
+
+    @Test
+    public void shouldSkipValidationWhenPassNullValueForFromAndTo() {
+        DateDifferenceDto dateDifferenceDto = new DateDifferenceDto();
+        ValidatorTest.validate(new Object[]{dateDifferenceDto});
+    }
 }

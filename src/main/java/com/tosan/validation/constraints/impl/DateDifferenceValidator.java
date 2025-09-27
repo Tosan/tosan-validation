@@ -2,7 +2,6 @@ package com.tosan.validation.constraints.impl;
 
 import com.tosan.validation.constraints.DateDifference;
 import com.tosan.validation.constraints.DateDifferenceUnit;
-import com.tosan.validation.util.date.DateTimeComparatorBasedOnUnit;
 import com.tosan.validation.util.date.DateTimeComparatorContext;
 import jakarta.validation.ConstraintValidator;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +14,8 @@ import java.lang.reflect.Field;
  * @author Boshra Taheri
  * @since 11/24/13
  */
-public class DateDifferenceValidator extends DifferenceValidator implements ConstraintValidator<DateDifference, Object> {
+public class DateDifferenceValidator extends DifferenceValidator
+        implements ConstraintValidator<DateDifference, Object> {
     private static final Logger logger = LoggerFactory.getLogger(DateDifferenceValidator.class);
     private String fromFieldName;
     private String toFieldName;
@@ -82,8 +82,10 @@ public class DateDifferenceValidator extends DifferenceValidator implements Cons
             Object toObj = toField.get(value);
             Class fieldType = fromField.getType();
             DateTimeComparatorContext dateTimeComparatorContext = new DateTimeComparatorContext(fieldType);
-            differenceInMilliseconds = dateTimeComparatorContext.doCompare(fieldType.cast(toObj), fieldType.cast(fromObj), DateDifferenceUnit.millisecond);
-            actualDifference = dateTimeComparatorContext.doCompare(fieldType.cast(toObj), fieldType.cast(fromObj), unit);
+            differenceInMilliseconds = dateTimeComparatorContext.doCompare(fieldType.cast(toObj),
+                    fieldType.cast(fromObj), DateDifferenceUnit.millisecond);
+            actualDifference = dateTimeComparatorContext.doCompare(fieldType.cast(toObj), fieldType.cast(fromObj),
+                    unit);
         } catch (IllegalAccessException e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
@@ -94,21 +96,13 @@ public class DateDifferenceValidator extends DifferenceValidator implements Cons
         return actualDifference;
     }
 
-    public static Field findTargetField(Class rootBeanClass, String fieldName) {
-        Field targetField = null;
-        NoSuchFieldException exception = new NoSuchFieldException();
-        while (targetField == null && !rootBeanClass.equals(Object.class)) {
-            try {
-                targetField = rootBeanClass.getDeclaredField(fieldName);
-            } catch (NoSuchFieldException e) {
-                rootBeanClass = rootBeanClass.getSuperclass();
-            }
-        }
-        if (targetField != null) {
-            return targetField;
-        } else {
-            logger.error("Field with name " + fieldName + " does not exist.");
-            throw new IllegalArgumentException(exception.getMessage(), exception);
-        }
+    @Override
+    protected String getFromFieldName() {
+        return fromFieldName;
+    }
+
+    @Override
+    protected String getToFieldName() {
+        return toFieldName;
     }
 }
