@@ -24,5 +24,6 @@ public enum ValidationAnnotation {
     PATTERN,
     SIZE,
     NOTNULL,
+    BASE64IMAGESIZE,
     OTHER
 }

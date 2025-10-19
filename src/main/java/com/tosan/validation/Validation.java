@@ -280,6 +280,8 @@ public class Validation {
             //TODO attributei nadare ke meghdaresh be darde kanal bokhore
         } else if (constraintAnnotation instanceof Encoding) {
             //TODO attributei nadare ke meghdaresh be darde kanal bokhore
+        } else if (constraintAnnotation instanceof Base64ImageSize) {
+            //TODO attributei nadare ke meghdaresh be darde kanal bokhore
         } else {
             logger.error("Validator '{}' is unknown.", constraintAnnotation.annotationType().getName());
         }
