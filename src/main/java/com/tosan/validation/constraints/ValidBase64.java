@@ -1,7 +1,7 @@
 package com.tosan.validation.constraints;
 
 
-import com.tosan.validation.constraints.impl.Base64ImageSizeValidator;
+import com.tosan.validation.constraints.impl.Base64Validator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -17,12 +17,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 10/19/25
  */
 @Documented
-@Constraint(validatedBy = Base64ImageSizeValidator.class)
+@Constraint(validatedBy = Base64Validator.class)
 @Target({ElementType.FIELD})
 @Retention(RUNTIME)
-public @interface Base64ImageSize {
+public @interface ValidBase64 {
 
-    String message() default "Image size exceeds the maximum allowed size";
+    String message() default "Base64 size exceeds the maximum allowed limit or is not a valid Base64 string.";
 
     Class<?>[] groups() default {};
 

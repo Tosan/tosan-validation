@@ -1,6 +1,6 @@
 package com.tosan.validation.constraints.impl;
 
-import com.tosan.validation.constraints.Base64ImageSize;
+import com.tosan.validation.constraints.ValidBase64;
 import com.tosan.validation.core.BaseValidator;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -12,12 +12,12 @@ import java.util.Map;
  * @author Amirhossein Zamanzade
  * @since 10/19/25
  */
-public class Base64ImageSizeValidator extends BaseValidator implements ConstraintValidator<Base64ImageSize, Object> {
+public class Base64Validator extends BaseValidator implements ConstraintValidator<ValidBase64, Object> {
 
     private Long maxBytesSize;
 
     @Override
-    public void initialize(Base64ImageSize constraintAnnotation) {
+    public void initialize(ValidBase64 constraintAnnotation) {
         Map<String, String> parameters = getParameters();
         if (constraintAnnotation.maxBytesSize() > 0) {
             this.maxBytesSize = constraintAnnotation.maxBytesSize();
