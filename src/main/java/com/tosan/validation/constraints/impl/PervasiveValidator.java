@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * @since 1/9/2022
  */
 public class PervasiveValidator extends BaseValidator<String> implements ConstraintValidator<Pervasive, String> {
-    public static final String PERVASIVE_ID_PATTERN = "\\d{7,13}$";
+    public static final String PERVASIVE_ID_PATTERN = "^[0-9]{12}$";
 
     @Override
     protected boolean doValidate(Object value, ConstraintValidatorContext context) {

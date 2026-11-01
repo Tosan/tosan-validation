@@ -12,7 +12,7 @@ public class PervasiveTest {
     @Test
     public void pervasiveTt() {
         PervasiveTestDto pervasiveTestDto = new PervasiveTestDto();
-        pervasiveTestDto.setPervasive("53165395");
+        pervasiveTestDto.setPervasive("123456789015");
         ValidatorTest.validate(new Object[]{pervasiveTestDto});
     }
 }
