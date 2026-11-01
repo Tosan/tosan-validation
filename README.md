@@ -64,7 +64,7 @@ The library builds on top of Jakarta Validation/Hibernate Validator with three k
 
 ## Testing
 
-- Tests use TestNG framework (not JUnit)
+- Tests use JUnit Jupiter framework
 - Test files are in `src/test/java/com/tosan/validation/`
 - Test resources (including sample properties) are in `src/test/resource/`
 - Most tests validate constraint violations using the standard Jakarta Validation API pattern
