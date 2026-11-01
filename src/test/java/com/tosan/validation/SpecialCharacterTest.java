@@ -1,7 +1,9 @@
 package com.tosan.validation;
 
 import com.tosan.validation.dto.SpecialCharacterDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author P.khoshkhou
@@ -16,10 +18,10 @@ public class SpecialCharacterTest {
         ValidatorTest.validate(new Object[]{dto});
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void validate_invalidStringWithSpecialCharacter_exceptionThrown() {
         SpecialCharacterDto dto = new SpecialCharacterDto();
         dto.setSpecialCharacter("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789^^<>%$@#&*()!{}':;`");
-        ValidatorTest.validate(new Object[]{dto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{dto}));
     }
 }

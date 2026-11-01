@@ -2,7 +2,7 @@ package com.tosan.validation;
 
 import com.tosan.validation.dto.GroupSequenceDto;
 import com.tosan.validation.order.CheckOrder;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Habib Motallebpour

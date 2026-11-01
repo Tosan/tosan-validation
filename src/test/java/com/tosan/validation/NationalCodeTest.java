@@ -1,7 +1,9 @@
 package com.tosan.validation;
 
 import com.tosan.validation.dto.NationalCodeDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author M.Hoseini
@@ -16,24 +18,24 @@ public class NationalCodeTest {
         ValidatorTest.validate(new Object[]{nationalCodeDto});
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void validate_invalidNationalCode_exceptionThrown() {
         NationalCodeDto nationalCodeDto = new NationalCodeDto();
         nationalCodeDto.setNationalCode("0015858818");
-        ValidatorTest.validate(new Object[]{nationalCodeDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{nationalCodeDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void validate_invalidNumberOfDigits_exceptionThrown() {
         NationalCodeDto nationalCodeDto = new NationalCodeDto();
         nationalCodeDto.setNationalCode("00158588123");
-        ValidatorTest.validate(new Object[]{nationalCodeDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{nationalCodeDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void validate_invalidInput_exceptionThrown() {
         NationalCodeDto nationalCodeDto = new NationalCodeDto();
         nationalCodeDto.setNationalCode("ششش1585881j");
-        ValidatorTest.validate(new Object[]{nationalCodeDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{nationalCodeDto}));
     }
 }

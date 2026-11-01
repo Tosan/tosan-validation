@@ -3,7 +3,7 @@ package com.tosan.validation;
 import com.tosan.tools.jalali.JalaliCalendar;
 import com.tosan.tools.jalali.JalaliDate;
 import com.tosan.validation.dto.JalaliDateDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Mostafa Abdollahi

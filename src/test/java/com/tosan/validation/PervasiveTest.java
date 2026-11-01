@@ -1,7 +1,7 @@
 package com.tosan.validation;
 
 import com.tosan.validation.dto.PervasiveTestDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author R.Mehri

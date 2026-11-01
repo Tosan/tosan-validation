@@ -1,7 +1,9 @@
 package com.tosan.validation;
 
 import com.tosan.validation.dto.ConditionalNotEmptyDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author a.ebrahimi
@@ -24,11 +26,11 @@ public class ConditionalNotEmptyTest {
         ValidatorTest.validate(new Object[]{conditionalNotEmptyDto});
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void validate_conditionIsTrueAndTargetFieldIsNull_validationNotSuccessFull() {
         ConditionalNotEmptyDto conditionalNotEmptyDto = new ConditionalNotEmptyDto();
         conditionalNotEmptyDto.setCondition(true);
-        ValidatorTest.validate(new Object[]{conditionalNotEmptyDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{conditionalNotEmptyDto}));
     }
 
     @Test

@@ -1,9 +1,11 @@
 package com.tosan.validation;
 
 import com.tosan.validation.dto.UUIDDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author P.khoshkhou
@@ -18,10 +20,10 @@ public class UUIDTest {
         ValidatorTest.validate(new Object[]{uuidDto});
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void validate_invalidUUID_exceptionThrown() {
         UUIDDto uuidDto = new UUIDDto();
         uuidDto.setUuid("not uuid");
-        ValidatorTest.validate(new Object[]{uuidDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{uuidDto}));
     }
 }

@@ -1,13 +1,14 @@
 package com.tosan.validation;
 
 import com.tosan.validation.dto.*;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Habib Motallebpour
@@ -31,7 +32,7 @@ public class DateDifferenceUnitTest {
         ValidatorTest.validate(new Object[]{dateDifferenceDto});
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void dateDifferenceMaxExceptionTest() {
         DateDifferenceDto dateDifferenceDto = new DateDifferenceDto();
         Calendar calendar = Calendar.getInstance();
@@ -40,10 +41,10 @@ public class DateDifferenceUnitTest {
         calendar.add(Calendar.DAY_OF_MONTH, 20);
         Date tomorrow = calendar.getTime();
         dateDifferenceDto.setToDate(tomorrow);
-        ValidatorTest.validate(new Object[]{dateDifferenceDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{dateDifferenceDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void dateDifferenceMinExceptionTest() {
         DateDifferenceDto dateDifferenceDto = new DateDifferenceDto();
         Calendar calendar = Calendar.getInstance();
@@ -52,7 +53,7 @@ public class DateDifferenceUnitTest {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         Date tomorrow = calendar.getTime();
         dateDifferenceDto.setToDate(tomorrow);
-        ValidatorTest.validate(new Object[]{dateDifferenceDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{dateDifferenceDto}));
     }
 
     @Test
@@ -67,7 +68,7 @@ public class DateDifferenceUnitTest {
         ValidatorTest.validate(new Object[]{dateDifferenceDto});
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void dateDifferenceListTest() {
         DateDifferenceDto dateDifferenceDto1 = new DateDifferenceDto();
         Calendar calendar = Calendar.getInstance();
@@ -86,10 +87,8 @@ public class DateDifferenceUnitTest {
         dateDifferenceDto2.setToDate(tomorrow1);
 
         DateDifferenceListDto dateDifferenceListDto = new DateDifferenceListDto();
-        List<DateDifferenceDto> list = dateDifferenceListDto.getDateList();
-        list.add(dateDifferenceDto1);
-        list.add(dateDifferenceDto2);
-        ValidatorTest.validate(new Object[]{dateDifferenceListDto});
+        dateDifferenceListDto.setDateList(List.of(dateDifferenceDto1, dateDifferenceDto2));
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{dateDifferenceListDto}));
     }
 
     @Test
@@ -100,11 +99,7 @@ public class DateDifferenceUnitTest {
         ZonedDateTime toZone = ZonedDateTime.of(toDateTime, ZoneId.of("UTC+4"));
         JavaTimeHardCodeDifferenceDto hardCodeDifferenceDto = new JavaTimeHardCodeDifferenceDto(fromDate, toDate, fromDateTime, toDateTime, fromTime, toTime,
                 fromZone, toZone);
-        try {
-            ValidatorTest.validate(new Object[]{hardCodeDifferenceDto});
-        } catch (RuntimeException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertDoesNotThrow(() -> ValidatorTest.validate(new Object[]{hardCodeDifferenceDto}));
     }
 
     @Test
@@ -115,15 +110,11 @@ public class DateDifferenceUnitTest {
         ZonedDateTime toZone = ZonedDateTime.of(toDateTime, ZoneId.of("UTC+4"));
         JavaTimeHardCodeDifferenceDto hardCodeDifferenceDto =
                 new JavaTimeHardCodeDifferenceDto(fromDate, toDate, fromDateTime, toDateTime, fromTime, toTime, fromZone, toZone);
-        try {
-            ValidatorTest.validate(new Object[]{hardCodeDifferenceDto});
-        } catch (RuntimeException e) {
-            String message = e.getMessage();
-            Assert.assertTrue(message.contains("fromLocalTime and toLocalTime") && message.contains("fromLocalDateTime and toLocalDateTime") &&
-                    message.contains("fromLocalDate and toLocalDate"));
-            return;
-        }
-        Assert.fail();
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> ValidatorTest.validate(new Object[]{hardCodeDifferenceDto}));
+        String message = exception.getMessage();
+        assertTrue(message.contains("fromLocalTime and toLocalTime") && message.contains("fromLocalDateTime and toLocalDateTime") &&
+                message.contains("fromLocalDate and toLocalDate"));
     }
 
     @Test
@@ -134,11 +125,7 @@ public class DateDifferenceUnitTest {
         ZonedDateTime toZone = ZonedDateTime.of(toDateTime, ZoneId.of("UTC+4"));
         JavaTimePropertiesDifferenceDto propertiesDifferenceDto =
                 new JavaTimePropertiesDifferenceDto(fromDate, toDate, fromDateTime, toDateTime, fromTime, toTime, fromZone, toZone);
-        try {
-            ValidatorTest.validate(new Object[]{propertiesDifferenceDto});
-        } catch (RuntimeException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertDoesNotThrow(() -> ValidatorTest.validate(new Object[]{propertiesDifferenceDto}));
     }
 
     @Test
@@ -149,15 +136,11 @@ public class DateDifferenceUnitTest {
         ZonedDateTime toZone = ZonedDateTime.of(toDateTime, ZoneId.of("UTC+4"));
         JavaTimePropertiesDifferenceDto propertiesDifferenceDto =
                 new JavaTimePropertiesDifferenceDto(fromDate, toDate, fromDateTime, toDateTime, fromTime, toTime, fromZone, toZone);
-        try {
-            ValidatorTest.validate(new Object[]{propertiesDifferenceDto});
-        } catch (RuntimeException e) {
-            String message = e.getMessage();
-            Assert.assertTrue(message.contains("fromLocalTime and toLocalTime") && message.contains("fromLocalDateTime and toLocalDateTime") &&
-                    message.contains("fromLocalDate and toLocalDate"));
-            return;
-        }
-        Assert.fail();
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> ValidatorTest.validate(new Object[]{propertiesDifferenceDto}));
+        String message = exception.getMessage();
+        assertTrue(message.contains("fromLocalTime and toLocalTime") && message.contains("fromLocalDateTime and toLocalDateTime") &&
+                message.contains("fromLocalDate and toLocalDate"));
     }
 
     @Test

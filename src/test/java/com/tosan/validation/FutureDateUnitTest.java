@@ -1,12 +1,14 @@
 package com.tosan.validation;
 
 import com.tosan.validation.dto.FutureDateDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Habib Motallebpour
@@ -56,61 +58,61 @@ public class FutureDateUnitTest {
         ValidatorTest.validate(new Object[]{futureDateDto});
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void todayDateTest() {
         FutureDateDto futureDateDto = new FutureDateDto();
         Calendar calendar = Calendar.getInstance();
         Date tomorrow = calendar.getTime();
         futureDateDto.setDate(tomorrow);
-        ValidatorTest.validate(new Object[]{futureDateDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{futureDateDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void todayZonedDateTest() {
         FutureDateDto futureDateDto = new FutureDateDto();
         Calendar calendar = Calendar.getInstance();
         ZonedDateTime tomorrow = calendar.getTime().toInstant().atZone(ZoneId.of("Asia/Tehran"));
         futureDateDto.setZonedDate(tomorrow);
-        ValidatorTest.validate(new Object[]{futureDateDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{futureDateDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void pastDateTest() {
         FutureDateDto futureDateDto = new FutureDateDto();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         Date tomorrow = calendar.getTime();
         futureDateDto.setDate(tomorrow);
-        ValidatorTest.validate(new Object[]{futureDateDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{futureDateDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void pastDateTimeTest() {
         FutureDateDto futureDateDto = new FutureDateDto();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, -13);
         Date tomorrow = calendar.getTime();
         futureDateDto.setDate(tomorrow);
-        ValidatorTest.validate(new Object[]{futureDateDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{futureDateDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void pastZonedDateTest() {
         FutureDateDto futureDateDto = new FutureDateDto();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         ZonedDateTime tomorrow = calendar.getTime().toInstant().atZone(ZoneId.of("Asia/Tehran"));
         futureDateDto.setZonedDate(tomorrow);
-        ValidatorTest.validate(new Object[]{futureDateDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{futureDateDto}));
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test
     public void pastZonedDateTimeTest() {
         FutureDateDto futureDateDto = new FutureDateDto();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, -13);
         ZonedDateTime tomorrow = calendar.getTime().toInstant().atZone(ZoneId.of("Asia/Tehran"));
         futureDateDto.setZonedDate(tomorrow);
-        ValidatorTest.validate(new Object[]{futureDateDto});
+        assertThrows(RuntimeException.class, () -> ValidatorTest.validate(new Object[]{futureDateDto}));
     }
 }
